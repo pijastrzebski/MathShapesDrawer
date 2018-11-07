@@ -26,10 +26,13 @@ CONFIG += c++14
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    renderarea.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    renderarea.h \
+    eshapes.h
 
 FORMS += \
         mainwindow.ui
