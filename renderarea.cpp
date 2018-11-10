@@ -3,6 +3,7 @@
 #include <QPaintEvent>
 #include <QPainter>
 #include <QColor>
+#include <QtMath>
 
 RenderArea::RenderArea(QWidget *parent) :
     QWidget(parent),
@@ -37,8 +38,8 @@ RenderArea* RenderArea::setShape(const EShapes &shape)
 
 void RenderArea::paintEvent(QPaintEvent *event)
 {
-    Q_UNUSED(event);
-    drawRectangleWithLine();
+    Q_UNUSED(event); // removes warning
+    drawAstroid();
 }
 
 void RenderArea::setColorsForPainter(QPainter& painter)
@@ -64,7 +65,7 @@ void RenderArea::setColorsForPainter(QPainter& painter)
     painter.setPen(m_shapeColor);
 }
 
-void RenderArea::drawRectangleWithLine()
+void RenderArea::drawAstroid()
 {
     QPainter m_painter(this);
 
@@ -72,7 +73,40 @@ void RenderArea::drawRectangleWithLine()
 
     // drawing area
     m_painter.drawRect(this->rect());
-    m_painter.drawLine(this->rect().topLeft(), this->rect().bottomRight());
+
+    QPoint center = this->rect().center();
+
+    int stepCount = 256;
+    qreal scale = 40;
+    qreal intervalLength = static_cast<qreal>(2 * M_PI);
+    qreal step = intervalLength / stepCount;
+
+    for (qreal t = 0; t < intervalLength; t += step)
+    {
+        QPointF point = compute_astroid (t);
+
+        QPoint pixel;
+        pixel.setX(static_cast<int>(point.x() *
+                   scale +
+                   center.x()));
+
+        pixel.setY(static_cast<int>(point.y() *
+                   scale +
+                   center.y()));
+
+        m_painter.drawPoint(pixel);
+    }
+
+}
+
+QPointF RenderArea::compute_astroid(qreal step) const
+{
+    auto cos_t = qCos(step);
+    auto sin_t = qSin(step);
+    auto x = 2 * qPow(cos_t, 3);
+    auto y = 2 * qPow(sin_t, 3);
+
+    return QPointF(x, y);
 }
 
 

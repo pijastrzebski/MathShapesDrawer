@@ -22,11 +22,13 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) override;
 
-    void drawRectangleWithLine();
+    void drawAstroid();
 
     void setColorsForPainter(QPainter& painter);
 
 private:
+    QPointF compute_astroid(qreal step) const;
+
     QColor m_backgroundColor;
     QColor m_shapeColor;
     EShapes m_shape;
