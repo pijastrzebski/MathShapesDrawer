@@ -19,19 +19,33 @@ public:
 
     RenderArea* setShape(const EShapes& shape);
     const EShapes& getShape() const {return m_shape;}
+
+    void Init();
+    QPointF compute( qreal typeOfShape);
 protected:
     void paintEvent(QPaintEvent *event) override;
-
     void drawAstroid();
-
     void setColorsForPainter(QPainter& painter);
 
 private:
-    QPointF compute_astroid(qreal step) const;
+    void on_shape_changed();
 
+    QPointF computeAstroid(qreal step) const;
+    QPointF computeCycloid(qreal step) const;
+    QPointF computeHuygensCicloid(qreal step) const;
+    QPointF computeHypoCycloid(qreal step) const;
+
+    QPointF computeFutureCurve(qreal step) const;
+
+
+private:
     QColor m_backgroundColor;
     QColor m_shapeColor;
     EShapes m_shape;
+
+    qreal m_intervalLength;
+    qreal m_scale;
+    int m_stepCount;
 
 signals:
 

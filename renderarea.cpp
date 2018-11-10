@@ -11,7 +11,7 @@ RenderArea::RenderArea(QWidget *parent) :
     m_shapeColor (255, 255, 255),
     m_shape(Astroid)
 {
-
+    Init();
 }
 
 QSize RenderArea::minimumSizeHint() const
@@ -33,7 +33,13 @@ RenderArea* RenderArea::setBackgroundColor(const QColor &color)
 RenderArea* RenderArea::setShape(const EShapes &shape)
 {
     m_shape = shape;
+    on_shape_changed();
     return this;
+}
+
+void RenderArea::Init()
+{
+    on_shape_changed();
 }
 
 void RenderArea::paintEvent(QPaintEvent *event)
@@ -44,25 +50,33 @@ void RenderArea::paintEvent(QPaintEvent *event)
 
 void RenderArea::setColorsForPainter(QPainter& painter)
 {
-    switch(m_shape)
-    {
-        case EShapes::Astroid:
-            m_backgroundColor = Qt::GlobalColor::red;
-            break;
-        case EShapes::Cycloid:
-            m_backgroundColor = Qt::GlobalColor::green;
-            break;
-        case EShapes::HuygensCicloid:
-            m_backgroundColor = Qt::GlobalColor::blue;
-            break;
-        case EShapes::HypoCycloid:
-            m_backgroundColor = Qt::GlobalColor::yellow;
-            break;
-    }
-
     painter.setRenderHint(QPainter::Antialiasing, true);
     painter.setBrush(m_backgroundColor);
     painter.setPen(m_shapeColor);
+}
+
+QPointF RenderArea::compute( qreal typeOfShape)
+{
+    switch (m_shape)
+    {
+    case EShapes::Astroid:
+        return computeAstroid(typeOfShape);
+        break;
+    case EShapes::Cycloid:
+        return computeCycloid(typeOfShape);
+        break;
+    case EShapes::HuygensCicloid:
+        return computeHuygensCicloid(typeOfShape);
+        break;
+    case EShapes::HypoCycloid:
+        return computeHypoCycloid(typeOfShape);
+        break;
+    case EShapes::FutureCurve:
+        return computeFutureCurve(typeOfShape);
+        break;
+    }
+
+    return {0,0};
 }
 
 void RenderArea::drawAstroid()
@@ -76,22 +90,19 @@ void RenderArea::drawAstroid()
 
     QPoint center = this->rect().center();
 
-    int stepCount = 256;
-    qreal scale = 40;
-    qreal intervalLength = static_cast<qreal>(2 * M_PI);
-    qreal step = intervalLength / stepCount;
+    qreal step = m_intervalLength / m_stepCount;
 
-    for (qreal t = 0; t < intervalLength; t += step)
+    for (qreal t = 0; t < m_intervalLength; t += step)
     {
-        QPointF point = compute_astroid (t);
+        QPointF point = compute(t);
 
         QPoint pixel;
         pixel.setX(static_cast<int>(point.x() *
-                   scale +
+                   m_scale +
                    center.x()));
 
         pixel.setY(static_cast<int>(point.y() *
-                   scale +
+                   m_scale +
                    center.y()));
 
         m_painter.drawPoint(pixel);
@@ -99,7 +110,7 @@ void RenderArea::drawAstroid()
 
 }
 
-QPointF RenderArea::compute_astroid(qreal step) const
+QPointF RenderArea::computeAstroid(qreal step) const
 {
     auto cos_t = qCos(step);
     auto sin_t = qSin(step);
@@ -107,6 +118,50 @@ QPointF RenderArea::compute_astroid(qreal step) const
     auto y = 2 * qPow(sin_t, 3);
 
     return QPointF(x, y);
+}
+
+QPointF RenderArea::computeCycloid(qreal step) const
+{
+    return {0, 0};
+}
+
+QPointF RenderArea::computeHuygensCicloid(qreal step) const
+{
+    return {0, 0};
+}
+
+QPointF RenderArea::computeHypoCycloid(qreal step) const
+{
+    return {0, 0};
+}
+
+QPointF RenderArea::computeFutureCurve(qreal step) const
+{
+    return {0, 0};
+}
+
+void RenderArea::on_shape_changed()
+{
+    switch(m_shape)
+    {
+        case EShapes::Astroid:
+            m_scale = 40;
+            m_intervalLength = static_cast<qreal>(2 * M_PI);
+            m_stepCount = 256;
+            break;
+        case EShapes::Cycloid:
+
+            break;
+        case EShapes::HuygensCicloid:
+
+            break;
+        case EShapes::HypoCycloid:
+
+            break;
+        case EShapes::FutureCurve:
+
+            break;
+    }
 }
 
 

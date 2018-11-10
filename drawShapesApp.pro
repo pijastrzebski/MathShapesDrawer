@@ -32,7 +32,8 @@ SOURCES += \
 HEADERS += \
         mainwindow.h \
     renderarea.h \
-    eshapes.h
+    eshapes.h \
+    build-drawShapesApp-Desktop_Qt_5_11_2_MSVC2017_64bit-Debug/ui_mainwindow.h
 
 FORMS += \
         mainwindow.ui
