@@ -34,7 +34,7 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0.0681818, x2:0.517045, y2:0.534091, stop:0.193182 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));</string>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
@@ -57,6 +57,11 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QPushButton" name="buttonAstroid">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Astroid</string>
           </property>
@@ -64,6 +69,11 @@
         </item>
         <item>
          <widget class="QPushButton" name="buttonCycloid">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Cycloid</string>
           </property>
@@ -71,6 +81,11 @@
         </item>
         <item>
          <widget class="QPushButton" name="buttonHuygens">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Huygens</string>
           </property>
@@ -78,6 +93,11 @@
         </item>
         <item>
          <widget class="QPushButton" name="buttonHypoCycloid">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>HypoCycloid</string>
           </property>

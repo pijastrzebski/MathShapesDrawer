@@ -20,20 +20,25 @@ public:
     RenderArea* setShape(const EShapes& shape);
     const EShapes& getShape() const {return m_shape;}
 
+    RenderArea* incrementCusp() { m_cusp++; return this;}
+
     void Init();
-    QPointF compute( qreal typeOfShape);
+    QPointF computeDispatcher( qreal typeOfShape);
+
+    void resetCuspForNewShape(const EShapes &shape);
+
 protected:
     void paintEvent(QPaintEvent *event) override;
-    void drawAstroid();
+    void drawShape();
     void setColorsForPainter(QPainter& painter);
 
 private:
-    void on_shape_changed();
+    void setupCurrentShape();
 
     QPointF computeAstroid(qreal step) const;
     QPointF computeCycloid(qreal step) const;
-    QPointF computeHuygensCicloid(qreal step) const;
-    QPointF computeHypoCycloid(qreal step) const;
+    QPointF computeHuygens(qreal step) const;
+    QPointF computeHypo(qreal step) const;
 
     QPointF computeFutureCurve(qreal step) const;
 
@@ -46,6 +51,7 @@ private:
     qreal m_intervalLength;
     qreal m_scale;
     int m_stepCount;
+    int m_cusp;
 
 signals:
 

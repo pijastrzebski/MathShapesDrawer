@@ -19,27 +19,28 @@ MainWindow::~MainWindow()
 void MainWindow::on_buttonAstroid_clicked()
 {
     this->ui->renderArea->setShape(EShapes::Astroid)
-                        ->setBackgroundColor(Qt::GlobalColor::red)
+                        ->setBackgroundColor(Qt::GlobalColor::darkRed)
                         ->repaint();
 }
 
 void MainWindow::on_buttonCycloid_clicked()
 {
     this->ui->renderArea->setShape(EShapes::Cycloid)
-                        ->setBackgroundColor(Qt::GlobalColor::green)
+                        ->setBackgroundColor(Qt::GlobalColor::darkGreen)
                         ->repaint();
 }
 
 void MainWindow::on_buttonHuygens_clicked()
 {
-    this->ui->renderArea->setShape(EShapes::HuygensCicloid)
-                        ->setBackgroundColor(Qt::GlobalColor::blue)
+    this->ui->renderArea->setShape(EShapes::HuygensCycloid)
+                        ->setBackgroundColor(Qt::GlobalColor::darkBlue)
+                        ->incrementCusp()
                         ->repaint();
 }
 
 void MainWindow::on_buttonHypoCycloid_clicked()
 {
     this->ui->renderArea->setShape(EShapes::HypoCycloid)
-                        ->setBackgroundColor(Qt::GlobalColor::yellow)
+                        ->setBackgroundColor(Qt::GlobalColor::darkYellow)
                         ->repaint();
 }

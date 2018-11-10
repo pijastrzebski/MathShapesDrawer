@@ -5,7 +5,7 @@ enum EShapes
 {
     Astroid = 0,
     Cycloid,
-    HuygensCicloid,
+    HuygensCycloid,
     HypoCycloid,
     FutureCurve
 };
